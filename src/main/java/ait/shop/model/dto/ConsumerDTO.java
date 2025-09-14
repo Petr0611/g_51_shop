@@ -1,23 +1,18 @@
-package ait.shop.model.entity;
+package ait.shop.model.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 
 import java.util.Objects;
 
-@Entity
-@Table(name = "consumer")
-@Schema(description = "Class that describes Consumer")
-public class Consumer {
+
+@Schema(description = "DTO for Consumer")
+public class ConsumerDTO {
 
     @Schema(description = "Consumer unique identifier", example = "777", accessMode = Schema.AccessMode.READ_ONLY)
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Schema(description = "Consumer name", example = "User")
-    @Column(name = "name")
     private String name;
 
     @Schema(description = "Id consumer available", accessMode = Schema.AccessMode.READ_ONLY)
@@ -55,7 +50,7 @@ public class Consumer {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Consumer consumer)) return false;
+        if (!(o instanceof ConsumerDTO consumer)) return false;
         return active == consumer.active && Objects.equals(id, consumer.id) && Objects.equals(name, consumer.name);
     }
 

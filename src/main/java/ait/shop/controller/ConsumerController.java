@@ -1,8 +1,15 @@
 package ait.shop.controller;
 
 
+import ait.shop.model.dto.ConsumerDTO;
+import ait.shop.model.dto.ProductDTO;
 import ait.shop.model.entity.Consumer;
 import ait.shop.service.interfaces.ConsumerService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,38 +24,52 @@ public class ConsumerController {
         this.service = service;
     }
 
+    @Operation(summary = "Create consumerDTO", description = "Add new consumerDTO.", tags = { "Consumer" })
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "successful operation",
+            content = { @Content(mediaType = "application/json", schema = @Schema(implementation = ConsumerDTO.class)),
+                    @Content(mediaType = "application/xml", schema = @Schema(implementation = ConsumerDTO.class)) }) })
+
     @PostMapping
-    public Consumer saveConsumer(@RequestBody Consumer consumer) {
-        return service.saveConsumer(consumer);
+    public ConsumerDTO saveConsumer(@RequestBody ConsumerDTO consumerDTO) {
+        return service.saveConsumer(consumerDTO);
     }
 
     @GetMapping
-    public List<Consumer> getAll() {
+    public List<ConsumerDTO> getAll() {
         return service.getAllActiveConsumers();
     }
 
+    @Operation(summary = "Get consumer by id", description = "Get consumer by id", tags = { "Consumer" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation",
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = ConsumerDTO.class)),
+                            @Content(mediaType = "application/xml", schema = @Schema(implementation = ConsumerDTO.class)) }),
+            @ApiResponse(responseCode = "400", description = "Invalid ip supplied", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Consumer not found", content = @Content)
+    })
+
     @GetMapping("/{id}")
-    public Consumer getById(@PathVariable Long id) {
+    public ConsumerDTO getById(@PathVariable Long id) {
         return service.getById(id);
     }
 
     @PutMapping("/{id}")
-    public Consumer update(@PathVariable Long id, @RequestBody Consumer consumer) {
-        return service.update(id, consumer);
+    public ConsumerDTO update(@PathVariable Long id, @RequestBody ConsumerDTO consumerDTO) {
+        return service.update(id, consumerDTO);
     }
 
     @DeleteMapping("/{consumerId}")
-    public Consumer removeById(@PathVariable("consumerId") Long id) {
+    public ConsumerDTO removeById(@PathVariable("consumerId") Long id) {
         return service.deleteById(id);
     }
 
     @DeleteMapping("/{consumerName}")
-    public Consumer removeByName(@PathVariable("consumerName") String name) {
+    public ConsumerDTO removeByName(@PathVariable("consumerName") String name) {
         return service.deleteByName(name);
     }
 
     @PutMapping("/restore/{id}")
-    public Consumer restoreConsumer(@PathVariable Long id) {
+    public ConsumerDTO restoreConsumer(@PathVariable Long id) {
         return service.restoreConsumerById(id);
 
     }

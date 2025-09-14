@@ -1,24 +1,25 @@
 package ait.shop.service.interfaces;
 
+import ait.shop.model.dto.ConsumerDTO;
 import ait.shop.model.entity.Consumer;
 
 import java.util.List;
 
 public interface ConsumerService {
 
-    Consumer saveConsumer(Consumer consumer);
+    ConsumerDTO saveConsumer(ConsumerDTO consumer);
 
-    List<Consumer> getAllActiveConsumers();
+    List<ConsumerDTO> getAllActiveConsumers();
 
-    Consumer getById(Long id);
+    ConsumerDTO getById(Long id);
 
-    Consumer update(Long id, Consumer consumer);
+    ConsumerDTO update(Long id, ConsumerDTO consumer);
 
-    Consumer deleteById(Long id);
+    ConsumerDTO deleteById(Long id);
 
-    Consumer deleteByName( String name);
+    ConsumerDTO deleteByName( String name);
 
-    Consumer restoreConsumerById(Long id);
+    ConsumerDTO restoreConsumerById(Long id);
 
     long getConsumerCount();
 
