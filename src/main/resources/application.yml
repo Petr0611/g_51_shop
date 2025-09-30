@@ -26,3 +26,9 @@ spring:
 server:
   servlet:
     context-path: /api
+
+logging:
+  file:
+    name: logs/log.log
+  level:
+    root: info
